@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Great Sunflower</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="login_text">E-mail ID</string>
+    <string name="login_button">Start</string>
+    <string name="optionScreenText">Next</string>
+    <string name="optionString">Please choose your type of observation</string>
+    <string name="radioButton1">Casual</string>
+    <string name="radioButton2">Stationary</string>
+    <string name="radioButton3">Travelling</string>
+    <string name="reqString"> * Required fields</string>
+
+</resources>
