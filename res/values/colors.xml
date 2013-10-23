@@ -3,5 +3,8 @@
 
     <color name="skyblue">#62B1F6</color>
     <color name="textWhite">#FFFFFF</color>
+    <color name="pressed_actionbaritemcustom">#CC62B1F6</color>
+    <color name="listbackground">#d9eafc</color>
+    <color name ="carditem">#FFFFFF</color>
 
 </resources>

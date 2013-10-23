@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/contextual_annotate"
+        android:icon="@drawable/ic_action_edit"
+        android:showAsAction="always"
+        android:title="@string/annotate"/>
+    <item
+        android:id="@+id/contextual_submit"
+        android:icon="@drawable/ic_action_send"
+        android:showAsAction="always"
+        android:title="@string/submit"/>
+    <item
+        android:id="@+id/contextual_delete"
+        android:icon="@drawable/ic_action_delete"
+        android:showAsAction="always"
+        android:title="@string/delete"/>
+
+</menu>

@@ -11,8 +11,10 @@ public class ObservationListHolder extends SherlockFragmentActivity {
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
+		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.listbackground));
 		setContentView(R.layout.listholder);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
 	}
 	
 	@Override

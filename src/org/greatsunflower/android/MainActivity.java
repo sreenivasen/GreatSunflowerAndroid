@@ -25,7 +25,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		getSupportFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new LoginFragment()).commit();
-		
+		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.listbackground));
 	       LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	       if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 	            //Toast.makeText(this, "GPS Disabled", Toast.LENGTH_SHORT).show();

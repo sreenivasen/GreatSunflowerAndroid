@@ -22,6 +22,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
+
+
 public class LoginFragment extends SherlockFragment {
 
 	private View v;
@@ -58,7 +60,9 @@ public class LoginFragment extends SherlockFragment {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							Intent intent = new Intent(getSherlockActivity(), ObservationListHolder.class);
+							//Intent intent = new Intent(getSherlockActivity(), ObservationListHolder.class);
+							
+							Intent intent = new Intent(getSherlockActivity(), ObservationListFragment.class);
 				            startActivity(intent);
 							
 						}

@@ -8,10 +8,13 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
-    
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -31,8 +34,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.greatsunflower.android.ObservationListHolder" >
+        <activity
+            android:name="org.greatsunflower.android.ObservationListHolder"
+            android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="org.greatsunflower.android.ObservationListFragment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+
+
     </application>
 
 </manifest>

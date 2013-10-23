@@ -7,10 +7,14 @@
     <string name="login_text">E-mail ID</string>
     <string name="login_button">Start</string>
     <string name="optionScreenText">Next</string>
-    <string name="optionString">Please choose your type of observation</string>
+    <string name="optionString">Select your type of observation</string>
     <string name="radioButton1">Casual</string>
     <string name="radioButton2">Stationary</string>
     <string name="radioButton3">Travelling</string>
     <string name="reqString"> * Required fields</string>
+    <string name="cameraname"> Camera </string>
+    <string name="annotate"> Annotate</string>
+    <string name="delete"> Delete </string>
+    <string name="submit"> Submit your observations</string>
 
 </resources>
