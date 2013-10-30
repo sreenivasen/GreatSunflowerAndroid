@@ -13,8 +13,14 @@
     <string name="radioButton3">Travelling</string>
     <string name="reqString"> * Required fields</string>
     <string name="cameraname"> Camera </string>
+    <string name="addobservation"> Add New Observation</string>
     <string name="annotate"> Annotate</string>
     <string name="delete"> Delete </string>
     <string name="submit"> Submit your observations</string>
+    <string name="image">Thumbnail</string>
+	<string name="information">Tutorial</string>
+	<string name="tutorial">Place holder for tutorial</string>
+	<string name="annotation">Annotate the observation</string>
+	<string name="annotate_element">Place holder for editing attributes of an observation</string>
 
 </resources>

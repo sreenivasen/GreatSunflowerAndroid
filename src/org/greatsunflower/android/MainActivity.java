@@ -14,6 +14,9 @@ import android.os.IBinder;
 import android.provider.Settings;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class MainActivity extends SherlockFragmentActivity {
 
@@ -23,6 +26,9 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		
+		
 		getSupportFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new LoginFragment()).commit();
 		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.listbackground));
@@ -73,9 +79,30 @@ public class MainActivity extends SherlockFragmentActivity {
     };
 
 	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+//	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+//		// TODO Auto-generated method stub
+//		return super.onCreateOptionsMenu(menu);
+//	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
+		MenuInflater inflater = new MenuInflater(getApplicationContext());
+		inflater.inflate(R.menu.activity_main, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int nextInt;
+
+		switch (item.getItemId()) {
+		case R.id.menu_information:
+			Intent intent = new Intent(this, TutorialActivity.class);
+            startActivity(intent);
+			return true;
+		default:
+			return true;
+		}
 	}
 	
     @Override

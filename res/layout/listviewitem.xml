@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="@string/image"
+        android:src="@drawable/india" />
+
+    <TextView
+        android:id="@+id/datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/location"
+        android:layout_alignBottom="@+id/location"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="10/28/2013 11:00AM"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/icon"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/icon"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="San Francisco, CA"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/flowername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/location"
+        android:layout_below="@+id/pollinator"
+        android:layout_marginTop="2dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Species (Flower)"
+        android:textSize="13dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pollinator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/flowername"
+        android:layout_alignTop="@+id/icon"
+        android:layout_marginTop="3dp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Pollinator"
+        android:textSize="13dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Actualflowername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/flowername"
+        android:layout_alignBottom="@+id/flowername"
+        android:layout_alignLeft="@+id/Actualpollinator"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="species species"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/Actualpollinator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pollinator"
+        android:layout_toRightOf="@+id/flowername"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="pollinator polli"
+        android:textSize="12dp" />
+
+</RelativeLayout>
