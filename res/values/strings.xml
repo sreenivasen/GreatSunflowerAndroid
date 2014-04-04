@@ -7,6 +7,7 @@
     <string name="login_text">E-mail ID</string>
     <string name="login_button">Start</string>
     <string name="optionScreenText">Next</string>
+    <string name="optionStart">Start</string>
     <string name="optionString">Select your type of observation</string>
     <string name="radioButton1">Casual</string>
     <string name="radioButton2">Stationary</string>
@@ -22,5 +23,37 @@
 	<string name="tutorial">Place holder for tutorial</string>
 	<string name="annotation">Annotate the observation</string>
 	<string name="annotate_element">Place holder for editing attributes of an observation</string>
-
+	<string name="observation_notification">Place holder for notification before start of observation</string>
+	<string name="abouttext1">What We Do</string>
+	<string name="abouttext2">People all over the country are collecting data on pollinators in their yards, gardens, schools and parks. Together, we take counts of the number and types of pollinators visiting plants (especially sunflowers). We have been gathering information on pollinator service since 2008, and now have the largest single body of information about bee pollinator service in North America. Thanks to our thousands of observers, we can determine where pollinator service is strong or weak compared to averages.</string>
+	<string name="abouttext3">Why It\'s Important</string>
+	<string name="abouttext4">Over the past few years, scientific studies have suggested that both honey bee and native bee populations are in trouble. What we don\'t know is how this is affecting pollination of our gardens, crops and wild lands. In 2008, we started this project as a way to gather information about our urban, suburban and rural bee populations and to give you the tools to learn about what is happening with the pollinators in your yard.</string>
+	<string name="abouttext5">How You Can Help</string>
+	<string name="abouttext6">While we love to get data from our namesake species, Lemon Queen Sunflowers, you can participate by watching a plant and recording how many pollinators visit, or recording pollinators as you take your favorite hike! Seeds can be purchased at your local store or through Renee\'s Garden who will donate 25% of her proceeds if you use the coupon code FR225A. Do join us! We would love to have you; let\’s help our most important pollinators together!</string>
+	
+	<string name="taxa_prompt">Pollinator: </string>
+	
+ <drawable name="blue">#62B1F6</drawable>
+	
+	<string-array name="items">
+        <item >New Observation</item>
+        <item >Prev Observations</item>
+        <item >About Us</item>
+    </string-array>
+    
+	<string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+     
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/great_sunflower</item>
+        <item>@drawable/ic_action_save</item>
+        <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_help</item>
+    </array>
+     
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+	
 </resources>

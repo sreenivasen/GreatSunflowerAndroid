@@ -1,14 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/contextual_submit"
-        android:icon="@drawable/ic_action_delete"
-        android:showAsAction="always"
-        android:title="@string/submit"/>
-    <item
-        android:id="@+id/contextual_delete"
-        android:icon="@drawable/ic_action_photo"
-        android:showAsAction="always"
-        android:title="@string/delete"/>
+<!--     <item -->
+<!--         android:id="@+id/contextual_submit" -->
+<!--         android:icon="@drawable/ic_action_delete" -->
+<!--         android:showAsAction="always" -->
+<!--         android:title="@string/submit"/> -->
+<!--     <item -->
+<!--         android:id="@+id/contextual_delete" -->
+<!--         android:icon="@drawable/ic_action_photo" -->
+<!--         android:showAsAction="always" -->
+<!--         android:title="@string/delete"/> -->
 
 </menu>

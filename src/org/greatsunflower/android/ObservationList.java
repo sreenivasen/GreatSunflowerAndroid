@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.R.color;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,10 +40,7 @@ public class ObservationList extends SherlockListFragment {
 			"South Korea", "Japan" };
 
 	// Array of integers points to images stored in /res/drawable/
-	int[] flags = new int[] { R.drawable.india, R.drawable.pakistan,
-			R.drawable.srilanka, R.drawable.china, R.drawable.bangladesh,
-			R.drawable.nepal, R.drawable.afghanistan, R.drawable.nkorea,
-			R.drawable.skorea, R.drawable.japan };
+	int[] flags = new int[] { R.drawable.india};
 
 	// Array of strings to store currencies
 	String[] currency = new String[] { "Indian Rupee", "Pakistani Rupee",
@@ -81,6 +79,7 @@ public class ObservationList extends SherlockListFragment {
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 	
+	@SuppressLint("NewApi")
 	private int getCheckedItemCount(ListView listView)
 	{
 	    if (Build.VERSION.SDK_INT >= 11) 

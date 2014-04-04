@@ -8,6 +8,8 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
@@ -87,6 +89,7 @@ public class LocationDemand extends Service implements LocationListener,
     @Override
     public void onLocationChanged(Location location) {
         Log.d(LocationDemand.class.getSimpleName(), "Location changed");
+        
 
 
     }

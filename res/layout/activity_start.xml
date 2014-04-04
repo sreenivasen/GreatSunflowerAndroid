@@ -10,83 +10,71 @@
     android:background="@color/carditem"
     android:gravity="center" >
 
-    <EditText
-        android:id="@+id/inputEmail"
+    <Button
+        android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:ellipsize="middle"
+        android:layout_alignLeft="@+id/optionRadioGroup"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:drawableRight="@drawable/ic_action_next_item"
         android:gravity="center"
-        android:hint="@string/login_text"
-        android:inputType="textEmailAddress" />
-
-    <LinearLayout
-        android:id="@+id/alternate_view_group"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/inputEmail"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical" />
-
-    <TextView
-        android:id="@+id/optionMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/alternate_view_group"
-        android:layout_marginLeft="20dp"
-        android:text="@string/optionString"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:text="@string/optionScreenText"
+        android:textSize="16sp" />
 
     <RadioGroup
         android:id="@+id/optionRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/optionMsg"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp" >
-
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:checked="true"
-            android:text="@string/radioButton1" >
-        </RadioButton>
+        android:layout_above="@+id/startButton"
+        android:layout_alignLeft="@+id/optionMsg"
+        android:layout_marginBottom="21dp" >
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/radioButton2" >
-        </RadioButton>
+            android:checked="true"
+            android:text="@string/radioButton2" />
 
         <RadioButton
             android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/radioButton3" >
-        </RadioButton>
+            android:text="@string/radioButton3" />
     </RadioGroup>
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/optionRadioGroup"
+    <TextView
+        android:id="@+id/optionMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/optionRadioGroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="25dp"
-        android:gravity="center"
-        android:text="@string/optionScreenText" />
+        android:text="@string/optionString"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_above="@+id/optionMsg"
+        android:layout_alignLeft="@+id/startButton"
+        android:layout_alignRight="@+id/startButton"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/great_sunflower" />
+
+    <ImageView
+        android:id="@+id/helpIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/optionMsg"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_alignTop="@+id/optionMsg"
+        android:background="@drawable/roundshape"
+        android:src="@drawable/ic_action_help" />
 
 </RelativeLayout>

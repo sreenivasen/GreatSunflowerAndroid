@@ -21,6 +21,8 @@ import com.actionbarsherlock.view.MenuItem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,6 +61,7 @@ public class ObservationListFragment extends SherlockListActivity {
 	private ArrayList<SQLiteObservations> observation_array = new ArrayList<SQLiteObservations>();	
 	SelectableAdapter listAdapter;
 	CustomListViewAdapter adapter;
+	private SharedPreferences pref;
 	
 	ListView listView;
     List<SQLiteObservations> rowItems;
@@ -66,6 +69,8 @@ public class ObservationListFragment extends SherlockListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		pref = getApplicationContext().getSharedPreferences("APP_PREFERENCES", MODE_PRIVATE);
 
 		Log.d("SREENI", "Entering observation list fragment");
 
@@ -86,6 +91,7 @@ public class ObservationListFragment extends SherlockListActivity {
 					View view, int position, long id) {
 				Log.d("SREENI","the position being passed on long item checked: " + position);
 				Log.d("SREENI","the ID being passed on long item checked: " + id);
+//				String message = view.findViewById(R.id.sessionId).getTag().toString();
 				onListItemCheck(position);
 				return true;
 			}
@@ -111,7 +117,6 @@ public class ObservationListFragment extends SherlockListActivity {
         adapter = new CustomListViewAdapter(this,R.layout.listviewitem, rowItems);
         Log.d("SREENI", "STEP 2");
         getListView().setAdapter(adapter);
-
 		
 	}
 	
@@ -121,7 +126,7 @@ public class ObservationListFragment extends SherlockListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		MenuInflater inflater = new MenuInflater(getApplicationContext());
-		inflater.inflate(R.menu.observationlist_menu, menu);
+//		inflater.inflate(R.menu.observationlist_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -151,8 +156,8 @@ public class ObservationListFragment extends SherlockListActivity {
 			String[] rating = new String[] { "Hi", "Very nice", "Hello" };
 			nextInt = new Random().nextInt(3);
 			// save the new observation to the database
-			observation = datasource.createObservations(rating[nextInt]);
-			rowItems.add(0, observation);
+//			observation = datasource.createObservations(rating[nextInt],"XYZ", "ABC", 0,"20130101");
+//			rowItems.add(0, observation);
 //			my_array.add(0,observation.getId() + ": " + observation.getPollinator());
 //			listAdapter.notifyDataSetChanged();
 			adapter.setNotifyOnChange(true);
@@ -169,7 +174,14 @@ public class ObservationListFragment extends SherlockListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		if (mActionMode == null) {
 			// no items selected, so perform item click actions
-			Intent intent = new Intent(this, AnnotationActivity.class);
+			
+			TextView sessionId = (TextView) v.findViewById(R.id.sessionId);
+			Log.d("OBSERVATION LIST", "poistion in list: " + position);
+			Log.d("OBSERVATION LIST", "session id: " + sessionId.getText());
+			Editor editor = pref.edit();
+			editor.putInt("SESSION_ID", Integer.valueOf((String) sessionId.getText()));
+			editor.commit();
+			Intent intent = new Intent(this, ObservationAnnotation.class);
             startActivity(intent);
 		} else
 			// add or remove selection for current list item

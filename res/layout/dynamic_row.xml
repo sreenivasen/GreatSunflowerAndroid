@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp" >
+
+    <TableLayout
+        android:id="@+id/tableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/carditem" >
+
+        <TableRow
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:paddingTop="5dp" >
+
+            <ImageView
+                android:id="@+id/addImage"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.4"
+                android:src="@drawable/ic_action_new_picture" />
+
+            <TextView
+                android:id="@+id/textout1"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Humming Bird" />
+
+            <TextView
+                android:id="@+id/textout2"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:text="1" />
+
+            <ImageView
+                android:id="@+id/removeImage"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.4"
+                android:src="@drawable/ic_action_cancel_dark" />
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tableRow"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray" />
+
+</RelativeLayout>

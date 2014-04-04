@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+    <TableLayout
+        android:id="@+id/tableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/carditem" >
+
+        <TableRow
+            android:layout_marginBottom="1dp"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/plantFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:text="Butterfly"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/plantId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="pollinatorId: 1"
+                android:textSize="10sp" 
+                android:textColor="@color/carditem"/>
+
+            <ImageView
+                android:id="@+id/removePlant"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="0.15"
+                android:src="@drawable/ic_action_cancel_dark" />
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

@@ -1,0 +1,5 @@
+You are about to start the camera application.
+Please end your observation session by exiting camera application.
+Once you exit the camera application, it will present you with all the pictures that were taken during this session.
+
+Go ahead and start your session.

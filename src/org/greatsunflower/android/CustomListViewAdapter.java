@@ -1,9 +1,12 @@
 package org.greatsunflower.android;
 
+import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -27,17 +30,17 @@ public class CustomListViewAdapter extends ArrayAdapter<SQLiteObservations> {
 	 
 	    /*private view holder class*/
 	    private class ViewHolder {
-	        ImageView imageView;
-	        TextView txtPollinator;
-	        TextView txtPollinatorName;
-	        TextView txtFlower;
-	        TextView txtFlowerName;
-	        TextView txtLocation;
-	        TextView txtDateTime;
+	        TextView observationType;
+	        TextView startdatetime;
+	        TextView enddatetime;
+	        TextView submission;
+	        TextView sessionId;
 	    }
+	    
 	 
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        ViewHolder holder = null;
+	        BitmapFactory.Options options = new BitmapFactory.Options();
 	        SQLiteObservations observation = getItem(position);
 	 
 	        LayoutInflater mInflater = (LayoutInflater) context
@@ -45,23 +48,28 @@ public class CustomListViewAdapter extends ArrayAdapter<SQLiteObservations> {
 	        if (convertView == null) {
 	            convertView = mInflater.inflate(R.layout.listviewitem, null);
 	            holder = new ViewHolder();
-	            holder.txtPollinator = (TextView) convertView.findViewById(R.id.pollinator);
-	            holder.txtPollinatorName = (TextView) convertView.findViewById(R.id.Actualpollinator);
-	            holder.txtFlower = (TextView) convertView.findViewById(R.id.flowername);
-	            holder.txtFlowerName = (TextView) convertView.findViewById(R.id.Actualflowername);
-	            holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
+	            holder.observationType = (TextView) convertView.findViewById(R.id.observationType);
+	            holder.startdatetime = (TextView) convertView.findViewById(R.id.startdatetime);
+	            holder.enddatetime = (TextView) convertView.findViewById(R.id.enddatetime);
+	            holder.submission = (TextView) convertView.findViewById(R.id.submission);
+	            holder.sessionId = (TextView) convertView.findViewById(R.id.sessionId);
 	            convertView.setTag(holder);
 	        } else
 	            holder = (ViewHolder) convertView.getTag();
 	 
 	        convertView.setBackgroundColor(mSelectedItemsIds.get(position)? 0x9962B1F6 : Color.TRANSPARENT);
 	        
-	        holder.txtPollinator.setText("Pollinator: ");
-	        holder.txtPollinatorName.setText(observation.getPollinator());
-	        holder.txtFlower.setText("Plant Name: ");
-	        holder.txtFlowerName.setText( String.valueOf(observation.getId()));
-	        holder.imageView.setImageResource(R.drawable.india);
-	 
+	        holder.observationType.setText(observation.getObservationType());
+	        holder.startdatetime.setText(observation.getStartDateTime());
+	        holder.enddatetime.setText(observation.getEndDateTime());	        
+	        if(observation.getIsSubmitted() == 0){
+	        	holder.submission.setText( "Submission: Pending");
+	        }
+	        else{
+	        	holder.submission.setText( "Submission: Completed");
+	        }
+	        holder.sessionId.setText(String.valueOf(observation.getSessionId()));
+	        	 
 	        return convertView;
 	    }
 	    
