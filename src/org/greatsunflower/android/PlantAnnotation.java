@@ -33,7 +33,7 @@ public class PlantAnnotation extends SherlockFragmentActivity implements Fragmen
 	TextView tabText;
 	ActionBar bar;
 	static TabHost tabHost;
-	FragmentTab2 f2;
+	FragmentTabTwo f2;
 	private SharedPreferences pref;
 	private int sessionId;
 	private String plant_family = null, plant_genus = null, plant_species = null, plant_var_subspecies = null;
@@ -64,11 +64,11 @@ public class PlantAnnotation extends SherlockFragmentActivity implements Fragmen
 		mTabsAdapter = new TabsAdapter(this, mViewPager);
 
 		mTabsAdapter.addTab(bar.newTab().setText("Plants"),
-				PlantTab1.class, null);
+				PlantTabOne.class, null);
 
 		
 		mTabsAdapter.addTab(bar.newTab().setText("Level 1"),
-				PlantTab2.class, null);
+				PlantTabTwo.class, null);
 //		mTabsAdapter.addTab(bar.newTab().setText("Level 2"),
 //				PlantTab3.class, null);
 //		mTabsAdapter.addTab(bar.newTab().setText("Level 3"),
@@ -77,29 +77,29 @@ public class PlantAnnotation extends SherlockFragmentActivity implements Fragmen
 	}
 	
 	public void respond (String data){
-		if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTab2){
+		if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTabTwo){
 			  // FragmentTab1 f1 = (FragmentTab1) mViewPager.getCurrentItem();
 			Editor editor = pref.edit();
 			editor.putString("PLANT_FAMILY", data );
 			editor.commit();
-			PlantTab2 frag2= (PlantTab2)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
+			PlantTabTwo frag2= (PlantTabTwo)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
 			frag2.changeText(data);
 			}
-		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTab3){
+		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTabThree){
 			Editor editor = pref.edit();
 			editor.putString("PLANT_GENUS", data );
 			editor.commit();
-			PlantTab3 frag3= (PlantTab3)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
+			PlantTabThree frag3= (PlantTabThree)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
 			frag3.changeText(data);
 		}
-		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTab4){
+		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTabFour){
 			Editor editor = pref.edit();
 			editor.putString("PLANT_SPECIES", data );
 			editor.commit();
-			PlantTab4 frag4= (PlantTab4)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
+			PlantTabFour frag4= (PlantTabFour)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
 			frag4.changeText(data);
 		}
-		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTab1){
+		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof PlantTabOne){
 			Editor editor = pref.edit();
 			editor.putString("PLANT_VAR_SUBSPECIES", data );
 			editor.commit();

@@ -1,7 +1,31 @@
 package org.greatsunflower.android;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONObject;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +34,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +44,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -64,6 +92,17 @@ public class StartActivity extends SherlockFragmentActivity {
 		public void handleMessage(Message message) {
 			setContentView(R.layout.app_start);
 
+//			 check if you are connected or not
+			 if(isConnected()){
+			 Log.d("HOME - NETWORK", "connected");
+			 // call AsynTask to perform network operation on separate thread
+			 new
+			 HttpAsyncTask().execute("http://demo.greatsunflower.org/sunflower7/sunflower_app/data");
+			 }
+			 else{
+			 Log.d("HOME - NETWORK", "not connected");
+			 }
+
 			datasource = new ObservationsDataSource(startActivity);
 			datasource.open();
 
@@ -85,8 +124,6 @@ public class StartActivity extends SherlockFragmentActivity {
 							Log.d("START SCREEN", text);
 						}
 					});
-
-
 
 			startButton.setOnClickListener(new OnClickListener() {
 
@@ -149,9 +186,8 @@ public class StartActivity extends SherlockFragmentActivity {
 				AlertDialog alertDialog = alertDialogBuilder.create();
 				alertDialog.show();
 			}
-			
-			helpIcon.setOnTouchListener(new OnTouchListener()
-	        {
+
+			helpIcon.setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View arg0, MotionEvent arg1) {
@@ -160,7 +196,7 @@ public class StartActivity extends SherlockFragmentActivity {
 					buildHelpAlertDialog();
 					return false;
 				}
-	       });
+			});
 
 			if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
@@ -380,8 +416,8 @@ public class StartActivity extends SherlockFragmentActivity {
 		helpAlert
 				.setTitle("Observation Types")
 				.setMessage(
-						"Stationary: Timed observations on single plant species. \n\n" +
-						"Travelling: Observations made over a known distance.")
+						"Stationary: Timed observations on single plant species. \n\n"
+								+ "Travelling: Observations made over a known distance.")
 				.setCancelable(true);
 		helpAlert.setPositiveButton("Close",
 				new DialogInterface.OnClickListener() {
@@ -392,6 +428,119 @@ public class StartActivity extends SherlockFragmentActivity {
 				});
 		AlertDialog alertDialog = helpAlert.create();
 		alertDialog.show();
+	}
+
+	public boolean isConnected() {
+		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+		if (networkInfo != null && networkInfo.isConnected())
+			return true;
+		else
+			return false;
+	}
+
+	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... urls) {
+			Log.d("HOME - NETWORK", "entered doInBackground method");
+			String testString = "Hello Ping from GreatSunflowerProject Android App!";
+
+			return POST(urls[0], testString);
+		}
+
+		// onPostExecute displays the results of the AsyncTask.
+		@Override
+		protected void onPostExecute(String result) {
+			Log.d("HOME - NETWORK", "Result: " + result);
+			Log.d("HOME - NETWORK", "data sent to the server");
+		}
+	}
+
+	public static String POST(String url, String testString) {
+		InputStream inputStream = null;
+		String result = "";
+		String username = "demo", password = "demo";
+		try {
+
+
+			
+			// 1. create HttpClient
+			HttpClient httpclient = new DefaultHttpClient();
+			Log.d("HOME - NETWORK", "http client created");
+
+			// 2. make POST request to the given URL
+			HttpPost httpPost = new HttpPost(url);
+
+		    /* authentication */
+		    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(
+		        username + ":" + password);
+		    ((AbstractHttpClient) httpclient).getCredentialsProvider().setCredentials(
+		        new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
+		        credentials);
+			
+			Log.d("HOME - NETWORK", "trying to make a post request");
+
+			String json = "";
+			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
+			// 3. build jsonObject
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.accumulate("PING @ "+timeStamp, testString);
+
+			// 4. convert JSONObject to JSON to String
+			json = jsonObject.toString();
+			Log.d("HOME - NETWORK", "JSON object: " + jsonObject.toString());
+
+			// 5. set json to StringEntity
+			StringEntity se = new StringEntity(json);
+			Log.d("HOME - NETWORK", "json set to string entity");
+
+			// 6. set httpPost Entity
+			httpPost.setEntity(se);
+			Log.d("HOME - NETWORK", "setting http post entity");
+
+			// 7. Set some headers to inform server about the type of the
+			// content
+			httpPost.setHeader("Accept", "application/json");
+			httpPost.setHeader("Content-type", "application/json");
+			Log.d("HOME - NETWORK",
+					"setting headers to inform server about the content");
+
+			// 8. Execute POST request to the given URL
+			Log.d("HOME - NETWORK", "trying to execute http client");
+			HttpResponse httpResponse = httpclient.execute(httpPost);
+			Log.d("HOME - NETWORK", "http response: " + httpResponse.toString());
+
+			// 9. receive response as inputStream
+			inputStream = httpResponse.getEntity().getContent();
+
+			// 10. convert inputstream to string
+			if (inputStream != null)
+				result = convertInputStreamToString(inputStream);
+			else
+				result = "Did not work!";
+
+		} catch (Exception e) {
+			Log.d("HOME - NETWORK", "entering catch in POST method");
+			Log.d("HOME - NETWORK", e.getLocalizedMessage());
+		}
+
+		// 11. return result
+		return result;
+	}
+
+	private static String convertInputStreamToString(InputStream inputStream)
+			throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while ((line = bufferedReader.readLine()) != null)
+			result += line;
+
+		inputStream.close();
+		return result;
+
 	}
 
 }

@@ -32,7 +32,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class FragmentTab1 extends SherlockFragment {
+public class FragmentTabOne extends SherlockFragment {
 
 	ImageView addPollinator;
 	Button goToNextTab;

@@ -3,13 +3,9 @@ package org.greatsunflower.android;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -18,48 +14,45 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+/**
+ * Activity used to annotate observations. The activity acts as fragment container 
+ * for multiple fragments. These fragments are added to the view pager to make sure
+ * the user is able to drill down the list elegantly. This allows user to drill through
+ * multiple tabs.
+ */
+
 public class ObservationAnnotation extends SherlockFragmentActivity implements FragmentCommunicator{
 
-	static ViewPager mViewPager;
+	static ViewPager sViewPager;
 	TabsAdapter mTabsAdapter;
 	TextView tabCenter;
 	TextView tabText;
 	ActionBar bar;
-	static TabHost tabHost;
-	FragmentTab2 f2;
 	private SharedPreferences pref;
-	private int sessionId;
-	private String taxa = null, middle_level = null, common_name = null, visitor_genus = null, visitor_species = null;
+	private int mSessionId;
+	private String mTaxa = null, mMiddleLevel = null, 
+			mCommonName = null, mVisitorGenus = null, 
+			mVisitorSpecies = null;
 	
 	final ObservationAnnotation annotation = this;
-	private ObservationsDataSource datasource;
-	private SQLiteObservations observation = null;
+	private SQLiteObservations mObservation = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-
 		
 		pref = getApplicationContext().getSharedPreferences("APP_PREFERENCES", MODE_PRIVATE);
 		Log.d("SESSION DETAILS", "Session Id: " + pref.getInt("SESSION_ID", -1));
-		sessionId = pref.getInt("SESSION_ID", -1);
+		mSessionId = pref.getInt("SESSION_ID", -1);
 		
 		if (pref.getString("OBSERVATION_TYPE", null).equals("Stationary")){
 			annotation.setTitle("Step 3 of 5");
@@ -67,76 +60,57 @@ public class ObservationAnnotation extends SherlockFragmentActivity implements F
 		else
 			annotation.setTitle("Step 3 of 4");
 		
-		mViewPager = new ViewPager(this);
-		mViewPager.setId(R.id.pollinatorPager);
+		sViewPager = new ViewPager(this);
+		sViewPager.setId(R.id.pollinatorPager);
 
-		setContentView(mViewPager);
+		setContentView(sViewPager);
 		bar = getSupportActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
-		mTabsAdapter = new TabsAdapter(this, mViewPager);
+		mTabsAdapter = new TabsAdapter(this, sViewPager);
 
 		mTabsAdapter.addTab(bar.newTab().setText("Pollinators"),
-				FragmentTab1.class, null);
+				FragmentTabOne.class, null);
 
 		
 		mTabsAdapter.addTab(bar.newTab().setText("Level 1"),
-				FragmentTab2.class, null);
+				FragmentTabTwo.class, null);
 		mTabsAdapter.addTab(bar.newTab().setText("Level 2"),
-				FragmentTab3.class, null);
-//		mTabsAdapter.addTab(bar.newTab().setText("Level 3"),
-//				FragmentTab4.class, null);
-//		mTabsAdapter.addTab(bar.newTab().setText("Level 4"),
-//				FragmentTab5.class, null);
+				FragmentTabThree.class, null);
 
 
 	}
 	
+	/** Responds to user's selection of an element in the list from current tab. */
 	public void respond (String data){
-		if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof FragmentTab2){
-			  // FragmentTab1 f1 = (FragmentTab1) mViewPager.getCurrentItem();
+		if(mTabsAdapter.getItem(sViewPager.getCurrentItem()) instanceof FragmentTabTwo){
 			Editor editor = pref.edit();
 			editor.putString("TAXA", data );
 			editor.commit();
-			FragmentTab2 frag2= (FragmentTab2)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
-			frag2.changeText(data);
+			FragmentTabTwo fragmentLevelTwo = (FragmentTabTwo)sViewPager.getAdapter().instantiateItem(sViewPager, sViewPager.getCurrentItem());
+			fragmentLevelTwo.changeText(data);
 			}
-		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof FragmentTab3){
+		else if(mTabsAdapter.getItem(sViewPager.getCurrentItem()) instanceof FragmentTabThree){
 			Editor editor = pref.edit();
 			editor.putString("MIDDLE_LEVEL", data );
 			editor.commit();
-			FragmentTab3 frag3= (FragmentTab3)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
-			frag3.changeText(data);
-		}
-		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof FragmentTab4){
-			Editor editor = pref.edit();
-			editor.putString("COMMON_NAME", data );
-			editor.commit();
-			FragmentTab4 frag4= (FragmentTab4)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
-			frag4.changeText(data);
-		}
-		else if(mTabsAdapter.getItem(mViewPager.getCurrentItem()) instanceof FragmentTab5){
-
-			Editor editor = pref.edit();
-			editor.putString("VISITOR_GENUS", data );
-			editor.commit();
-			FragmentTab5 frag5= (FragmentTab5)mViewPager.getAdapter().instantiateItem(mViewPager, mViewPager.getCurrentItem());
-			frag5.changeText(data);
-		}
-		
-
+			FragmentTabThree fragmentLevelThree = (FragmentTabThree)sViewPager.getAdapter().instantiateItem(sViewPager, sViewPager.getCurrentItem());
+			fragmentLevelThree.changeText(data);
+		}		
 	}
 
-	
+	/** Sets the current tab in the activity */
 	public boolean setCurrentTab(int id) { 
-		mViewPager.setCurrentItem(id);
+		sViewPager.setCurrentItem(id);
 		return true;
 		 }
-	
+
+	/** Returns current session id  */
 	public int getCurrentSession(){
-		return sessionId;
+		return mSessionId;
 	}
 	
+	/** Returns a dialog if there are no images for the current session  */
 	public void buildWarningDialog(Context context){
 		AlertDialog.Builder helpAlert = new AlertDialog.Builder(context);
 		helpAlert
@@ -155,7 +129,7 @@ public class ObservationAnnotation extends SherlockFragmentActivity implements F
 		alertDialog.show();
 	}
 	
-	
+	/** Returns a dialog to the user to notify based on the API level of the device */
 	public void buildAPILevelDialogWarning(Context context){
 		AlertDialog.Builder helpAlert = new AlertDialog.Builder(context);
 		helpAlert
@@ -174,57 +148,31 @@ public class ObservationAnnotation extends SherlockFragmentActivity implements F
 		alertDialog.show();
 	}
 	
-	public void showDialogForImages(int sessionId, Context context){
-		final CharSequence[] items = {"one", "two", "three"};
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Pick image(s)")
-        .setMultiChoiceItems(items, null,
-                new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which,
-                    boolean isChecked) {
-                Log.d("FRAGMENT 1", items[which] + " " + isChecked);
-            }
-        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @SuppressLint("NewApi")
-			@Override
-            public void onClick(DialogInterface dialog, int which) {
-                //reading content of the dialog
-                AlertDialog a = ((AlertDialog)dialog);
-                Log.d("FRAGMENT 1", "" + a.getListView().getCheckedItemCount());
-                for(long i: a.getListView().getCheckItemIds()){
-                    Log.d("FRAGMENT 1", i + "");
-                }
-            }
-        });
-        
-        final Dialog dlg = builder.create();
-        dlg.show();
-	}
-
-	
-	public SQLiteObservations insertPollinators(int sessionId, Context context,ObservationsDataSource source,int count){
+	/** Inserts a row into SQLite database based on the values selected by user */
+	public SQLiteObservations insertPollinators(int mSessionId, Context context,ObservationsDataSource source,int count){
 		Log.d("CREATE POLLINATOR", count +  " COUNT");
 		pref = context.getSharedPreferences("APP_PREFERENCES", MODE_PRIVATE);
-		taxa = pref.getString("TAXA", "");
-		middle_level = pref.getString("MIDDLE_LEVEL", "");
-		common_name = pref.getString("COMMON_NAME", "");
-		visitor_genus = pref.getString("VISITOR_GENUS", "");
-		visitor_species = pref.getString("VISITOR_SPECIES", "");
-		observation = source.createPollinator(count,taxa, middle_level, common_name, visitor_genus, visitor_species,sessionId,getCurrentDate());
+		mTaxa = pref.getString("TAXA", "");
+		mMiddleLevel = pref.getString("MIDDLE_LEVEL", "");
+		mCommonName = pref.getString("COMMON_NAME", "");
+		mVisitorGenus = pref.getString("VISITOR_GENUS", "");
+		mVisitorSpecies = pref.getString("VISITOR_SPECIES", "");
+		mObservation = source.createPollinator(count,mTaxa, mMiddleLevel, mCommonName, mVisitorGenus, mVisitorSpecies,mSessionId,getCurrentDate());
 		Editor editor = pref.edit();
 		editor.putString("TAXA", null );
 		editor.putString("MIDDLE_LEVEL", null );
 		editor.putString("COMMON_NAME", null );
 		editor.putString("VISITOR_GENUS", null);
 		editor.commit();
-		return observation;
+		return mObservation;
 	}
 	
+	/** Returns a current date */
 	public String getCurrentDate(){
 		return java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 	}
 
+	
 	public static class TabsAdapter extends FragmentPagerAdapter implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 		private final Context mContext;
 		private final ActionBar mActionBar;
@@ -299,8 +247,11 @@ public class ObservationAnnotation extends SherlockFragmentActivity implements F
 		
 	
 	}
+	
+	
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
+
 		MenuInflater inflater = new MenuInflater(getApplicationContext());
 		inflater.inflate(R.menu.activity_start, menu);
 		return super.onCreateOptionsMenu(menu);

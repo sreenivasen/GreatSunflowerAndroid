@@ -45,11 +45,6 @@ import android.graphics.PorterDuff;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
-
-
-
 public class LoginFragment extends SherlockFragment {
 
 	private View v;

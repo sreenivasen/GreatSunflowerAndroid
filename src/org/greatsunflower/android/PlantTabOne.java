@@ -28,7 +28,7 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-public class PlantTab1 extends SherlockFragment {
+public class PlantTabOne extends SherlockFragment {
 
 	ImageView addPollinator;
 	Button goToNextTab;

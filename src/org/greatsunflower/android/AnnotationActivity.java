@@ -45,8 +45,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-
 public class AnnotationActivity extends SherlockFragmentActivity {
 	private ObservationsDataSource datasource;
 	private SQLiteObservations observation = null;

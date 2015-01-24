@@ -3,10 +3,13 @@ package org.greatsunflower.android;
 import java.io.File;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -57,6 +60,14 @@ public class SubmissionActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_submit);
 		intent = new Intent(this, StartActivity.class);
 
+		// check if you are connected or not
+        if(isConnected()){
+            Log.d("HOME - NETWORK", "connected");
+        }
+        else{
+        	Log.d("HOME - NETWORK", "not connected");
+        }
+		
 		datasource = new ObservationsDataSource(this);
 		datasource.open();
 		
@@ -207,4 +218,13 @@ public class SubmissionActivity extends SherlockFragmentActivity {
 		submitText = submitText + "Var (Subspecies): \t" + varSubSpeciesValue
 				+ "\n";
 	}
+	
+	public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) 
+                return true;
+            else
+                return false;    
+    }
 }

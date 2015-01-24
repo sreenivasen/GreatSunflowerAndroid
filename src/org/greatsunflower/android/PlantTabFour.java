@@ -16,22 +16,23 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
  
-public class FragmentTab3 extends SherlockFragment {
+public class PlantTabFour extends SherlockFragment {
 	
 	   ListView list;
 	    ArrayAdapter adapter;
-	    ObservationAnnotation parentActivity;
+	    PlantAnnotation parentActivity;
 	    static View rootView;
 	    Context currentActivity = getActivity();
 	    ArrayList<String> yourlist = new ArrayList<String>();
 		private CSVtoSQLiteDataSource csvsource;
 		private CSVtoSQLiteTaxas taxas = null;
 		FragmentCommunicator comm;
+		
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragmenttab3, container, false);
-parentActivity = new ObservationAnnotation();
+        View rootView = inflater.inflate(R.layout.planttab4, container, false);
+parentActivity = new PlantAnnotation();
         
 		csvsource = new CSVtoSQLiteDataSource(getSherlockActivity());
 		csvsource.open();
@@ -39,7 +40,7 @@ parentActivity = new ObservationAnnotation();
 		taxas = new CSVtoSQLiteTaxas();
         
      // Locate the ListView in fragmenttab1.xml
-        list = (ListView) rootView.findViewById(R.id.listview3);
+        list = (ListView) rootView.findViewById(R.id.listview4);
         
         
         yourlist.add("");
@@ -52,15 +53,15 @@ parentActivity = new ObservationAnnotation();
         	 
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	parentActivity.setCurrentTab(0);
+            	parentActivity.setCurrentTab(3);
             	comm.respond(adapter.getItem(position).toString());
 
             }
  
         });
         
-        Button button3 = (Button) rootView.findViewById(R.id.Button3);
-        button3.setOnClickListener(new OnClickListener() {
+        Button button4 = (Button) rootView.findViewById(R.id.Button4);
+        button4.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -72,8 +73,7 @@ parentActivity = new ObservationAnnotation();
     
     public void changeText(String data){
     	yourlist.clear();
-//    	yourlist.addAll(csvsource.getDistinctCommonName(data));
-    	yourlist.addAll(csvsource.getDistinctPollinatorLevel2(data));
+    	yourlist.addAll(csvsource.getDistinctPlantVarSubSpecies(data));
     	adapter.notifyDataSetChanged();
     }
     

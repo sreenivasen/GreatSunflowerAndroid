@@ -16,7 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
  
-public class FragmentTab5 extends SherlockFragment {
+public class FragmentTabFive extends SherlockFragment {
 	
 	   ListView list;
 	    ArrayAdapter adapter;

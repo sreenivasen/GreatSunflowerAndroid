@@ -16,22 +16,23 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
  
-public class PlantTab3 extends SherlockFragment {
+public class FragmentTabFour extends SherlockFragment {
 	
 	   ListView list;
 	    ArrayAdapter adapter;
-	    PlantAnnotation parentActivity;
+	    ObservationAnnotation parentActivity;
 	    static View rootView;
 	    Context currentActivity = getActivity();
 	    ArrayList<String> yourlist = new ArrayList<String>();
 		private CSVtoSQLiteDataSource csvsource;
 		private CSVtoSQLiteTaxas taxas = null;
 		FragmentCommunicator comm;
+		
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.planttab3, container, false);
-parentActivity = new PlantAnnotation();
+        View rootView = inflater.inflate(R.layout.fragmenttab4, container, false);
+parentActivity = new ObservationAnnotation();
         
 		csvsource = new CSVtoSQLiteDataSource(getSherlockActivity());
 		csvsource.open();
@@ -39,7 +40,7 @@ parentActivity = new PlantAnnotation();
 		taxas = new CSVtoSQLiteTaxas();
         
      // Locate the ListView in fragmenttab1.xml
-        list = (ListView) rootView.findViewById(R.id.listview3);
+        list = (ListView) rootView.findViewById(R.id.listview4);
         
         
         yourlist.add("");
@@ -59,8 +60,8 @@ parentActivity = new PlantAnnotation();
  
         });
         
-        Button button3 = (Button) rootView.findViewById(R.id.Button3);
-        button3.setOnClickListener(new OnClickListener() {
+        Button button4 = (Button) rootView.findViewById(R.id.Button4);
+        button4.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -72,7 +73,7 @@ parentActivity = new PlantAnnotation();
     
     public void changeText(String data){
     	yourlist.clear();
-    	yourlist.addAll(csvsource.getDistinctPlantSpecies(data));
+    	yourlist.addAll(csvsource.getDistinctVisitorGenus(data));
     	adapter.notifyDataSetChanged();
     }
     
